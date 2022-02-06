@@ -2,7 +2,7 @@ random sunday shodan safari, i find some jeedom instances and this papier about 
 (https://www.synacktiv.com/sites/default/files/2021-10/advisory_Jeedom_Auth_Bypass_CVE-2021-42557.pdf) 
 
 
-they say you can reach RCE via legit features if you can find the http_password in the response of "jeeObject::full" call, but from my scans the password from the web interface is very rarely in there :(
+they say you can reach RCE via legit features if you can find the http_password in the response of "jeeObject::full" call, but from my scans the password for the web interface is very rarely in there :(
 
 so i decided to find another way to RCE after the auth bypass and here we are..
 
