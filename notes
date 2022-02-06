@@ -6,7 +6,7 @@ they say you can reach RCE via legit features if you can find the http_password 
 
 so i decided to find another way to RCE after the auth bypass and here we are..
 
-there a command injection in the "core::branch" parameter, you can save the payload in the config and trigger an update to execute the command
+there's a command injection in the "core::branch" parameter, you can save a basic cmd injection payload "$(cmd)" in the config and trigger an update to execute the command
 
 GET /core/api/jeeApi.php HTTP/1.1
 Host: xxxx
