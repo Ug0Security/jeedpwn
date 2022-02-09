@@ -1,3 +1,6 @@
+https://github.com/jeedom/core
+shodan : product:jeedom
+
 random sunday shodan safari, i find some jeedom instances and this papier about a recent auth bypass:
 (https://www.synacktiv.com/sites/default/files/2021-10/advisory_Jeedom_Auth_Bypass_CVE-2021-42557.pdf) 
 
